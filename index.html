@@ -14,16 +14,19 @@
 
         <form>
           <h2>To search by breed, please enter a type of dog breed:</h2>
-          <input type="text" id="dog-breed">
-          <input type="submit" id="dog-breed" value="Get a dog pic by breed!" required>
+          <input type="text" id="dog-breed" required>
+          <input type="submit" id="dog-breed-submit" value="Get a dog pic by breed!">
           <h2>If you want multiple dog pictures, please select how many dog pictures you would like:</h2>
           <input type="number" id ="number-pictures" name="number-pictures" min="1" max="50" value="3" required>
-          <input type="submit" value="Get lots of dog pictures!">
+          <input type="submit" id ="number-pictures-submit" value="Get lots of dog pictures!">
         </form>
         <section class="results hidden">
           <h2>Look at this dog!</h2>
           <img class="results-img" id ="results-img" alt="placeholder">
         </section>
+    </div>
+    <div id="dog-images">
+      <img src="" class="results-img"></img>
     </div>
     <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
     <script src="index.js"></script>
