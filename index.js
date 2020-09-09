@@ -11,7 +11,11 @@ function getDogBreedImage(){
         .then(responseJson => 
             displayResults(responseJson))
         .catch(error => alert('Could not find that dog breed!'));
-   
+  
+  window.addEventListener('error', function(e) {            
+    //Create new error message
+     e.target.parentNode.innerHTML = "Oh no! Could not find that dog breed!";
+    }, true);
         }   
            
 
@@ -28,7 +32,7 @@ function displayResults(responseJson) {
 
 function getDogImageByNumber(){
     let numPics = document.getElementById("number-pictures").value;
-      //  console.log(numPics);
+      
 
 fetch('https://dog.ceo/api/breeds/image/random/' + numPics)
    .then(response => response.json())
@@ -38,20 +42,17 @@ fetch('https://dog.ceo/api/breeds/image/random/' + numPics)
     }
 
  function displayMultipleResults(responseJson) {
- // console.log(responseJson.message);
+ 
 //puts the message in an array
   let data = responseJson.message;
  
 
- //display the results section 
- $('.results').removeClass('hidden');
   //replace the existing image with the new one
 let html = '';
 let i = 0;
 data.forEach(responseJson => {
-console.log(responseJson);
 
-html += $('#results-img').replaceWith( `<img src="${responseJson}" class="results-img${i}"></img>`);
+         $('#dog-images').append('<img src="'+ responseJson +'" width="200px;" height="200px">');
 i++;
 });
 
@@ -88,6 +89,9 @@ $(function() {
 
 
 
+
+
+   
 
 
    
