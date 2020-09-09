@@ -1,31 +1,23 @@
 'use strict';
 
-//function getDogImage() {
- // fetch('https://dog.ceo/api/breeds/image/random')
-  //  .then(response => response.json())
- //   .then(responseJson => 
-  //    displayResults(responseJson))
-  //  .catch(error => alert('Something went wrong. Try again later.'));
-//}
 
-//function getDogBreedImage(){
+function getDogBreedImage(){
 
- //  let dogBreed = document.getElementById("dog-breed").value;
- //   console.log(dogBreed);
+   let dogBreed = document.getElementById("dog-breed").value;
+   console.log(dogBreed);
 
-  //      fetch('https://dog.ceo/api/breed/' + dogBreed + '/images/random')
-  //       .then(response => response.json())
-  //       .then(responseJson => 
-   //         displayResults(responseJson))
-  //       .catch(error => alert('Could not find that dog breed!'));
+       fetch('https://dog.ceo/api/breed/' + dogBreed + '/images/random')
+        .then(response => response.json())
+        .then(responseJson => 
+            displayResults(responseJson))
+        .catch(error => alert('Could not find that dog breed!'));
    
-   //      }   
+        }   
            
 
 function displayResults(responseJson) {
-  console.log(responseJson);
+ 
   //replace the existing image with the new one
-  
   $('#results-img').replaceWith(
     `<img src="${responseJson.message}" class="results-img">`
   )
@@ -34,36 +26,9 @@ function displayResults(responseJson) {
  
 }
 
-function watchForm() {
-  $('form').submit(event => {
-    event.preventDefault();
-  // getDogBreedImage();
-     getDogImageByNumber();
-  });
-}
-
-
-$(function() {
-  console.log('App loaded! Waiting for submit!');
-  watchForm();
-});
-
-
-
-
-//click function to get value of number of dog pictures
-//$('#number-pictures').on('keyup mouseup', function(event){
-  // event.preventDefault();
-  //let numPics = $('#number-pictures').val();
-  // console.log(numPics);
- //  getDogImageByNumber();
-
-//});
-
-
 function getDogImageByNumber(){
-      let numPics = document.getElementById("number-pictures").value;
-        //console.log(numPics);
+    let numPics = document.getElementById("number-pictures").value;
+      //  console.log(numPics);
 
 fetch('https://dog.ceo/api/breeds/image/random/' + numPics)
    .then(response => response.json())
@@ -73,11 +38,59 @@ fetch('https://dog.ceo/api/breeds/image/random/' + numPics)
     }
 
  function displayMultipleResults(responseJson) {
-  console.log(responseJson.message);
-    //replace the existing image with the new one
-    //display the results section
-    $('.results').removeClass('hidden');
-    
+ // console.log(responseJson.message);
+//puts the message in an array
+  let data = responseJson.message;
+ 
+
+ //display the results section 
+ $('.results').removeClass('hidden');
+  //replace the existing image with the new one
+let html = '';
+let i = 0;
+data.forEach(responseJson => {
+console.log(responseJson);
+
+html += $('#results-img').replaceWith( `<img src="${responseJson}" class="results-img${i}"></img>`);
+i++;
+});
+
+return html;
+ }
+
+
+function dogBreedSubmit() {
+  $('form').on('click', '#dog-breed-submit', function(event){
+    event.preventDefault();
+   getDogBreedImage();
+   
+    //
+  });
+}
+
+function multiplePicSubmit() {
+    $('form').on('click', '#number-pictures-submit', function(event){
+      event.preventDefault();
+      getDogImageByNumber();
+    });
   }
+
+
+$(function() {
+  console.log('App loaded! Waiting for submit!');
+  dogBreedSubmit();
+  multiplePicSubmit();
+});
+
+
+
+
+
+
+
+
+
+   
+  
 
   
