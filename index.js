@@ -4,7 +4,7 @@
 function getDogBreedImage(){
 
    let dogBreed = document.getElementById("dog-breed").value;
-   console.log(dogBreed);
+  
 
        fetch('https://dog.ceo/api/breed/' + dogBreed + '/images/random')
         .then(response => response.json())
@@ -20,29 +20,48 @@ function getDogBreedImage(){
            
 
 function displayResults(responseJson) {
- 
+  //print image url to console
+  console.log(responseJson.message);
+ //empty image results container
+  $('#results-img').empty();
+  $('#dog-images').empty();
   //replace the existing image with the new one
+  
+  $('.results').removeClass('hidden');
   $('#results-img').replaceWith(
     `<img src="${responseJson.message}" class="results-img">`
   )
   //display the results section
-  $('.results').removeClass('hidden');
- 
+
 }
 
 function getDogImageByNumber(){
+  
     let numPics = document.getElementById("number-pictures").value;
-      
+  
 
+    var errorEl = document.querySelector('h4');
+
+    if (numPics < 1 || numPics > 50) {
+    errorEl.textContent = "Please select a number between 1 and 50";
+      } 
+      
+      else{
 fetch('https://dog.ceo/api/breeds/image/random/' + numPics)
    .then(response => response.json())
    .then(responseJson => 
    displayMultipleResults(responseJson))
    .catch(error => alert('Number was not entered!'));
-    }
+   }
+  }
 
  function displayMultipleResults(responseJson) {
- 
+   //display image url to console
+  console.log(responseJson.message);
+ //empty image results container  
+ $('.results').addClass('hidden');
+   $('#results-img').empty();
+  $('#dog-images').empty();
 //puts the message in an array
   let data = responseJson.message;
  
@@ -92,6 +111,7 @@ $(function() {
 
 
    
+  
 
 
    
