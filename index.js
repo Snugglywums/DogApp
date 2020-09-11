@@ -9,8 +9,11 @@ function getDogBreedImage(){
        fetch('https://dog.ceo/api/breed/' + dogBreed + '/images/random')
         .then(response => response.json())
         .then(responseJson => 
-            displayResults(responseJson))
-        .catch(error => alert('Could not find that dog breed!'));
+           if (responseJson.status === "error") {
+                alert("Breed not found")
+            } else {
+                displayResults(responseJson)
+            }
   
   window.addEventListener('error', function(e) {            
     //Create new error message
